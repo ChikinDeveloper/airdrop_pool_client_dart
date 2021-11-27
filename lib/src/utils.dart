@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:solana/solana.dart' as solana;
+import 'package:solana_js/solana_js.dart';
 
 import 'config.dart';
 
@@ -11,7 +12,7 @@ Future<String> getPoolAccountId({
   required String tokenMintId,
   required List<int> nonce,
 }) {
-  return solana.findProgramAddress(
+  return SolanaJsUtils.findProgramAddress(
     seeds: [
       solana.base58decode(programId),
       solana.base58decode(tokenMintId),
@@ -26,7 +27,7 @@ Future<String> getPoolTokenAccountId({
   required String programId,
   required String poolAccountId,
 }) {
-  return solana.findProgramAddress(
+  return SolanaJsUtils.findProgramAddress(
     seeds: [
       solana.base58decode(programId),
       solana.base58decode(poolAccountId),
@@ -41,7 +42,7 @@ Future<String> getClaimerAccountId({
   required String poolAccountId,
   required String claimerWalletId,
 }) {
-  return solana.findProgramAddress(
+  return SolanaJsUtils.findProgramAddress(
     seeds: [
       solana.base58decode(programId),
       solana.base58decode(poolAccountId),
@@ -57,7 +58,7 @@ Future<String> getClaimerTokenAccountId({
   required String tokenMintId,
   required String claimerWalletId,
 }) async {
-  return solana.findProgramAddress(
+  return SolanaJsUtils.findProgramAddress(
     seeds: [
       solana.base58decode(claimerWalletId),
       solana.base58decode(config.tokenProgramId),

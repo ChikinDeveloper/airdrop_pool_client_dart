@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:chikin_airdrop_pool_client/src/model.dart';
 import 'package:solana/solana.dart';
 
@@ -11,8 +9,13 @@ Future<AirdropPool?> getAirdropPool({
 }) async {
   final poolAccount = await rpcClient.getAccountInfo(poolAccountId);
   if (poolAccount == null) return null;
-  final dataBytes = base64.decode(poolAccount.data[0]);
-  return AirdropPool.unpack(dataBytes);
+  final result = poolAccount.data
+      ?.mapOrNull(fromBytes: (value) => AirdropPool.unpack(value.bytes));
+  if (result == null) {
+    throw Exception(
+        'client.getAirdropPool : Failed to unpack account ${poolAccount.data?.runtimeType}');
+  }
+  return result;
 }
 
 Future<AirdropClaimer?> getAirdropClaimer({
@@ -28,6 +31,11 @@ Future<AirdropClaimer?> getAirdropClaimer({
   );
   final claimerAccount = await rpcClient.getAccountInfo(claimerAccountId);
   if (claimerAccount == null) return null;
-  final dataBytes = base64.decode(claimerAccount.data[0]);
-  return AirdropClaimer.unpack(dataBytes);
+  final result = claimerAccount.data
+      ?.mapOrNull(fromBytes: (value) => AirdropClaimer.unpack(value.bytes));
+  if (result == null) {
+    throw Exception(
+        'client.getAirdropClaimer : Failed to unpack account ${claimerAccount.data?.runtimeType}');
+  }
+  return result;
 }
