@@ -16,11 +16,12 @@ dependencies:
     git:
       url: https://github.com/ChikinDeveloper/ext_solana_dart
       path: packages/solana
-      ref: cb998ece936f1abdac624cac9ee8985b9ad5e98d
+      ref: ae03e3929f39bd849198421647166b9adc1950fc
+
   solana_js:
     git:
-      url: https://gitlab.com/ChikinDeveloper/dart_solana_js
-      ref: ad61f16575ed5d7423690b71ed88a8865828a6a6
+      url: https://github.com/ChikinDeveloper/dart_solana_js
+      ref: b0ca11d7008e442cf8eb4c6e82c9f2eb8926aa9d
 
 dev_dependencies:
   flutter_test:

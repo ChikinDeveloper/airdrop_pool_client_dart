@@ -43,7 +43,7 @@ Future<Instruction> initialize({
 }
 
 Future<Instruction> claim({
-  required RPCClient rpcClient,
+  required RpcClient rpcClient,
   required Config config,
   required String tokenMintId,
   required String poolAccountId,

@@ -4,22 +4,16 @@ import 'package:solana/solana.dart';
 import 'utils.dart' as utils;
 
 Future<AirdropPool?> getAirdropPool({
-  required RPCClient rpcClient,
+  required RpcClient rpcClient,
   required String poolAccountId,
 }) async {
-  final poolAccount = await rpcClient.getAccountInfo(poolAccountId);
+  final poolAccount = await rpcClient.getAccountInfo(poolAccountId, encoding: Encoding.base64);
   if (poolAccount == null) return null;
-  final result = poolAccount.data
-      ?.mapOrNull(fromBytes: (value) => AirdropPool.unpack(value.bytes));
-  if (result == null) {
-    throw Exception(
-        'client.getAirdropPool : Failed to unpack account ${poolAccount.data?.runtimeType}');
-  }
-  return result;
+  return AirdropPool.unpack((poolAccount.data as BinaryAccountData).data);
 }
 
 Future<AirdropClaimer?> getAirdropClaimer({
-  required RPCClient rpcClient,
+  required RpcClient rpcClient,
   required String programId,
   required String poolAccountId,
   required String claimerWalletId,
@@ -29,13 +23,7 @@ Future<AirdropClaimer?> getAirdropClaimer({
     poolAccountId: poolAccountId,
     claimerWalletId: claimerWalletId,
   );
-  final claimerAccount = await rpcClient.getAccountInfo(claimerAccountId);
+  final claimerAccount = await rpcClient.getAccountInfo(claimerAccountId, encoding: Encoding.base64);
   if (claimerAccount == null) return null;
-  final result = claimerAccount.data
-      ?.mapOrNull(fromBytes: (value) => AirdropClaimer.unpack(value.bytes));
-  if (result == null) {
-    throw Exception(
-        'client.getAirdropClaimer : Failed to unpack account ${claimerAccount.data?.runtimeType}');
-  }
-  return result;
+  return AirdropClaimer.unpack((claimerAccount.data as BinaryAccountData).data);
 }
