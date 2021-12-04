@@ -21,7 +21,7 @@ dependencies:
   solana_js:
     git:
       url: https://github.com/ChikinDeveloper/dart_solana_js
-      ref: b0ca11d7008e442cf8eb4c6e82c9f2eb8926aa9d
+      ref: a56a2f71c21679fb15b994dbdc18924c95e9e781
 
 dev_dependencies:
   flutter_test:
